@@ -5,27 +5,21 @@ import scala.io._
 
 abstract class SlabSpec extends FreeSpec with Matchers
 
-class SampleTest extends SlabSpec {
-  "Main class" - {
-    "test it" in {
-      assert(Main.main(Array("test")) === (():Unit))
-    }
-  }
-}
 
 class FilterTest extends SlabSpec {
-  "Networks" - {
+  "Networks class tests" - {
     val n = new Networks()
-    "1 10 n1" in {
+    "Add 1-10 to n1" in {
       n.add(1, 10, "n1")
     }
-    "check it" in {
+    "Check n1 range" in {
       n.find(5) should be (List("n1"))
+      n.find(0) should be (List())
     }
-    "5 20 n2" in {
+    "Add 5-20 to n2" in {
       n.add(5, 20, "n2")
     }
-    "check n2" in {
+    "Check n2 and n1 ranges" in {
       n.find(11) should be (List("n2"))
       n.find(10) should be (List("n2", "n1"))
       n.find(5) should be (List("n2", "n1"))
@@ -33,13 +27,13 @@ class FilterTest extends SlabSpec {
       n.find(21) should be (List())
     }
   }
-  "Networks from file" in {
+  "Load networks from file" in {
     val n = Networks.fromFile("ranges.tsv")
   }
 }
 
 class TransactionsTest extends SlabSpec {
-  "Transaction" in {
+  "Test full workflow by reading 'transactions.tsv'" in {
     val n = Networks.fromFile("ranges.tsv")
     val t = new Transactions(n)
     Source.fromFile("transactions.tsv").getLines foreach {
