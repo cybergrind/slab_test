@@ -1,6 +1,7 @@
 package slab_test
 
 import org.scalatest._
+import scala.io._
 
 abstract class SlabSpec extends FreeSpec with Matchers
 
@@ -14,7 +15,7 @@ class SampleTest extends SlabSpec {
 
 class FilterTest extends SlabSpec {
   "Networks" - {
-    var n = new Networks()
+    val n = new Networks()
     "1 10 n1" in {
       n.add(1, 10, "n1")
     }
@@ -34,5 +35,18 @@ class FilterTest extends SlabSpec {
   }
   "Networks from file" in {
     val n = Networks.fromFile("ranges.tsv")
+  }
+}
+
+class TransactionsTest extends SlabSpec {
+  "Transaction" in {
+    val n = Networks.fromFile("ranges.tsv")
+    val t = new Transactions(n)
+    Source.fromFile("transactions.tsv").getLines foreach {
+      line:String => {
+        val Array(user, ip) = line.split('\t')
+        println(s"$user, $ip, ${t.processUser(user, ip)}")
+      }
+    }
   }
 }

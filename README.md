@@ -4,7 +4,7 @@
 ## General aglorithm
 
 1. Read network segments and build BTree to perform searches (we're converting IPv4 -> uint32)
-2. Build stream from transactions
+2. Lazy read transactions lines
 3. Perform per-line stream transformations: `transaction -> map(getNetworkSegments) -> flatMap(writeOutLines)`
 
 
@@ -39,7 +39,3 @@ If we add `192.168.1.10-20 => seg2` we'll have:
 
 And so on for all possible network segments. When we have to find out segments for ip address, we just call `lowerEntry(intIP)` and tree will give us list with network segments for given IPv4 address.
 
-
-## Stream operations
-
-Streams are used to ease logic of our program. Stream generated from `transactions.tsv` input file, so we're operating only on single line of transactions per processing cycle (it's possible to switch it to network and perform realtime processing). [Monix](https://github.com/monixio/monix) is used as implementation library, general conceptions and overview can be found on any [FRP](https://en.wikipedia.org/wiki/Functional_reactive_programming) article or library.
