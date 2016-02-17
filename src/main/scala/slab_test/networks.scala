@@ -8,7 +8,7 @@ object Networks {
     Source.fromFile(path).getLines foreach {
       (line:String) => {
         val Array(range, name) = line.split('\t')
-        val Array(start, end) = range.split('-').map(ipFun.ipToLong _)
+        val Array(start, end) = range.split('-').map(helpers.ipToLong _)
         n.add(start, end, name)
       }
     }

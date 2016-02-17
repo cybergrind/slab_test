@@ -1,7 +1,7 @@
 package slab_test
 
 class IPConversion extends SlabSpec {
-  val f = ipFun.ipToLong _
+  val f = helpers.ipToLong _
   "Test conversion from string to Long" in {
     f("0.0.0.1") should be (1)
     f("1.0.0.0") should be (1<<24)

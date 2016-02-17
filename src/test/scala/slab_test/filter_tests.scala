@@ -35,10 +35,10 @@ class FilterTest extends SlabSpec {
 class TransactionsTest extends SlabSpec {
   "Test full workflow by reading 'transactions.tsv'" in {
     val n = Networks.fromFile("ranges.tsv")
-    val t = new Transactions(n)
     Source.fromFile("transactions.tsv").getLines foreach {
       line:String => {
         val Array(user, ip) = line.split('\t')
+        helpers.processUser(user, ip, n)
       }
     }
   }
