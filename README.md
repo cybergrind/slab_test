@@ -1,5 +1,9 @@
 # ScalaLab test task
 
+## Usage
+
+* `sbt run` - to run program, it'll read data from `ranges.tsv`, `transactions.tsv` and write output to `output.tsv`
+* `sbt test` - to run tests
 
 ## General aglorithm
 

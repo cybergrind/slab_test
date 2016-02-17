@@ -25,7 +25,7 @@ object ipFun {
 }
 
 
-class Transactions (networks:Networks, source:String, output:String){
+class Transactions (networks:Networks, source:String="", output:String=""){
   def processTransactions():Unit = {
     val n = Networks.fromFile("ranges.tsv")
     val writer = new PrintWriter(new File(output))

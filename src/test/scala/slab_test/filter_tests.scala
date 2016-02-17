@@ -45,7 +45,6 @@ class TransactionsTest extends SlabSpec {
     Source.fromFile("transactions.tsv").getLines foreach {
       line:String => {
         val Array(user, ip) = line.split('\t')
-        println(s"$user, $ip, ${t.processUser(user, ip)}")
       }
     }
   }
