@@ -30,7 +30,9 @@ class FilterTest extends SlabSpec {
       n.find(5) should be (List("n2", "n1"))
       n.find(4) should be (List("n1"))
       n.find(21) should be (List())
-      println(n.stored)
     }
+  }
+  "Networks from file" in {
+    val n = Networks.fromFile("ranges.tsv")
   }
 }

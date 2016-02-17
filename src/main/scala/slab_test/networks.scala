@@ -1,16 +1,31 @@
 package slab_test
+import scala.io._
 
+
+object Networks {
+  def fromFile(path:String): Networks = {
+    val n = new Networks;
+    Source.fromFile(path).getLines foreach {
+      (line:String) => {
+        val Array(range, name) = line.split('\t')
+        val Array(start, end) = range.split('-').map(ipFun.ipToLong _)
+        n.add(start, end, name)
+      }
+    }
+    n
+  }
+}
 
 class Networks {
-  val stored = new java.util.TreeMap[Int, List[String]]
+  val stored = new java.util.TreeMap[Long, List[String]]
   stored.put(0, List())
 
-  def add(startIp: Int, endIp: Int, name: String): Unit = {
+  def add(startIp: Long, endIp: Long, name: String): Unit = {
     freeze(endIp + 1)
     setTo(endIp, startIp, name)
   }
 
-  def freeze(ip: Int): Unit = {
+  def freeze(ip: Long): Unit = {
     val e = stored.lowerEntry(ip)
     e.getKey() match {
       case `ip` => {}
@@ -21,7 +36,7 @@ class Networks {
     }
   }
 
-  def setTo(currIp: Int, targetIp: Int, network: String): Unit = {
+  def setTo(currIp: Long, targetIp: Long, network: String): Unit = {
     val e = stored.lowerEntry(currIp)
     (e.getKey(), e.getKey() > targetIp) match {
       case (ip, true) => {
@@ -35,7 +50,7 @@ class Networks {
   }
 
 
-  def find(ip: Int): List[String] = {
+  def find(ip: Long): List[String] = {
     stored.lowerEntry(ip+1) match {
       case null =>
         return List():List[String]
