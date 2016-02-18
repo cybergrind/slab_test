@@ -11,6 +11,14 @@
 2. Lazy read transactions lines
 3. Perform per-line stream transformations: `transaction -> map(getNetworkSegments) -> flatMap(writeOutLines)`
 
+## What's different in reactive
+
+In reactive version is used slightly different approach to handle input data - Streams, you can read more in any [FRP](https://en.wikipedia.org/wiki/Functional_reactive_programming) article. In this example I've used [monix](https://github.com/monixio/monix) library.
+
+When you use you data input as stream - you can write more simple code, you can use well-defined [ReactiveX](http://reactivex.io/) APIs and split your code into the simple *pure functions* (it's ease to test and write). Also you can use different input streams as a source and combine them together - files, network, database and etc.
+
+And reactive libraries provide ability to enable concurrency execution without any additional movements: if you've written your code as bunch of simple pure functions you can put it on without any doubts.
+
 
 ## Network segments storing and filtering
 

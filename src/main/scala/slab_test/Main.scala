@@ -32,7 +32,8 @@ object helpers {
     lock.acquire()
     val writer = new PrintWriter(new File(out))
 
-    input.map((s:String) => s.split('\t'))
+    input
+      .map((s:String) => s.split('\t'))
       .flatMap( s => {
         val Array(user:String, ip:String) = s
         Observable.fromIterable(helpers.processUser(user, ip, n))
