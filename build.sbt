@@ -2,7 +2,7 @@ libraryDependencies += "org.monifu" %% "monifu" % "1.0"
 
 val scalatest = "org.scalatest" % "scalatest_2.11" % "2.2.6" % Test
 
-scalacOptions ++= Seq("-unchecked", "-deprecation")
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 
 val commonSettings = Seq(
   organization := "slab_test",

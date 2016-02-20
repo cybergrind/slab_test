@@ -28,7 +28,8 @@ object Main {
 
 
 object helpers {
-  def processTransactions(lock:Semaphore, out:String, n:Networks, input:Observable[String]){
+  def processTransactions(lock:Semaphore, out:String, n:Networks, 
+                          input:Observable[String]): Unit = {
     lock.acquire()
     val writer = new PrintWriter(new File(out))
 
@@ -60,7 +61,7 @@ object helpers {
     try {
       ip.split('.').map(_.toLong)
         .foldRight((0, 0):(Long, Long)){
-        (i, acc) => ((acc._1 + (i<<acc._2)), (acc._2 + 8))} _1
+        (i, acc) => ((acc._1 + (i<<acc._2)), (acc._2 + 8))}._1
     } catch {
       case e: Exception => 0
     }
